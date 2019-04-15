@@ -1,11 +1,24 @@
 #include "hwlib.hpp"
 
-int main(void) {
-  // kill the watchdog
+#include <comm.hpp>
+
+#include "module.hpp"
+
+int main() {
+    using namespace r2d2;
+
+    // kill the watchdog
     WDT->WDT_MR = WDT_MR_WDDIS;
-    hwlib::wait_ms(1000);
-    for (;;){
-        hwlib::cout << "this works via arduino";
-        hwlib::wait_ms(1000);
+
+    hwlib::wait_ms(10);
+
+    r2d2::comm_c comm;
+
+    controller::module_c module(comm);
+
+    for (;;) {
+        module.process();
+
+        hwlib::wait_ms(10);
     }
 }
