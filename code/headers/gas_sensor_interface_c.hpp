@@ -1,16 +1,37 @@
 #pragma once
 #include <array>
+#include <gas_s.hpp>
 
-namespace r2d2::gas {
-    class gas_sensor_interface_c{
-    private:
-
-    public:
-        gas_sensor_interface_c(){}
-        virtual std::array<int, 5> get();       //temporary, return type will be changed soon. 
+namespace r2d2::gas_detection {
+    class gas_sensor_interface_base_c {
         virtual void calibrate();
-          
     };
 
+    /**
+     * Class gas_sensor_interface_c provides an interface of all the gas sensors. 
+     *  
+     */
+    template<int AmountOfGasses>
+    class gas_sensor_interface_c : public gas_sensor_interface_base_c {
+    private:
+        
+    public:
+        gas_sensor_interface_c(){}
+
+        /**
+         *  This funtion gets the return value from the gas sensor.
+         *  This can be either a PPM value or a ml/L.
+         * 
+         * @internal
+         * @return
+         */
+        virtual std::array<r2d2::gas_detection::gas_s, AmountOfGasses> get(); 
+
+        /**
+         * This function calibrates the sensor.
+         */
+        virtual void calibrate(); 
+          
+    };
 
 }
