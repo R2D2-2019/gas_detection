@@ -1,5 +1,6 @@
 #include <mq_sensor.hpp>
 
+
 template<typename T, std::size_t N>
 hwlib::ostream & operator<< (hwlib::ostream & out, const std::array<T, N> & rhs)
 {
@@ -9,11 +10,13 @@ hwlib::ostream & operator<< (hwlib::ostream & out, const std::array<T, N> & rhs)
     return out;
 }
 
+
 int main(void) {
   // kill the watchdog
     WDT->WDT_MR = WDT_MR_WDDIS;
     hwlib::wait_ms(1000);
     auto mq_pin = hwlib::target::pin_adc(hwlib::target::ad_pins::a0);
+
     int rl = 10; //found in datasheet
     float ro_clean_air_factor = 9.83; // see datasheet air line
 
@@ -34,6 +37,7 @@ int main(void) {
     std::array<mq_sensors_gas_curve, gasses_amount> mq_2_gasses = {co, lpg  };
 
     mq_sensor_c<gasses_amount> mq_2(mq_pin, rl, ro_clean_air_factor, mq_2_gasses);
+
     
     hwlib::cout << "start heating" << '\n';
     //hwlib::wait_ms(20'000); // the module needs to heat up!
@@ -43,7 +47,4 @@ int main(void) {
     for(;;){
       hwlib::cout << "read result: " << mq_2.read(1, 20) << '\n';
     }
-    
-
-    
 }
