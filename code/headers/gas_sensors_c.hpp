@@ -11,7 +11,7 @@ namespace r2d2::gas_detection {
     template <int AmountOfSensors>
     class gas_sensors_c : public base_module_c{
     private:
-    std::array<gas_sensor_interface_base_c*, AmountOfSensors> sensors;
+        std::array<gas_sensor_interface_base_c*, AmountOfSensors> sensors;
 
     public:
         gas_sensors_c(base_comm_c &comm)
@@ -30,7 +30,6 @@ namespace r2d2::gas_detection {
             }
    
             //update gas container
-            return;
         }   
     };
 }

@@ -3,6 +3,11 @@
 #include <gas_s.hpp>
 
 namespace r2d2::gas_detection {
+
+    /**
+     * Class gas_sensor_interface_base_c is needed to create an array of gas_sensor_interface_c instances. 
+     * We cant do this directly because gas_sensor_interface_c is an templated class.
+     */
     class gas_sensor_interface_base_c {
         virtual void calibrate();
     };
@@ -13,8 +18,6 @@ namespace r2d2::gas_detection {
      */
     template<int AmountOfGasses>
     class gas_sensor_interface_c : public gas_sensor_interface_base_c {
-    private:
-        
     public:
         gas_sensor_interface_c(){}
 

@@ -22,16 +22,17 @@ namespace r2d2::gas_detection {
                     return gas.value;
                 }
             }
+            return -1;
         }
 
         /**
          * This function is used to set values in the container. 
          */
-        void set (int gas_id, int value){
+        bool set (int gas_id, int value){
             for (const gas_s &gas : gasses){
                 if (gas.gas_id == gas_id){
                     gas.value = value;
-                    return true; // confirmed. 
+                    return true; // succesfully set gas. 
                 }
             }
             return false; //gas not in array. (We need to make sure all gasses are already in the array from the start. This needs another look, but works for now)
