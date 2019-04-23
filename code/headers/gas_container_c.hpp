@@ -3,14 +3,16 @@
 #include <array>
 namespace r2d2::gas_detection {
     /**
-     * Class gas_container_c is a containers for all the gas values 
+     * Class gas_container_c is a containers for all the gas values. 
      */
     template<int AmountOfGasses>
     class gas_container_c{
     private:
         std::array<gas_s, AmountOfGasses> gasses;
     public:
-        gas_container_c(){}
+        gas_container_c(std::array<gas_s, AmountOfGasses> gasses)
+            : gasses(gasses)
+        {}
 
         /**
          * This function returns the value of a certain gas. To use this function, give the ID from a gas (which should be found on the wiki).

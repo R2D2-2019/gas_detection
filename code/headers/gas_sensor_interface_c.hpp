@@ -10,6 +10,7 @@ namespace r2d2::gas_detection {
      */
     class gas_sensor_interface_base_c {
         virtual void calibrate();
+
     };
 
     /**
