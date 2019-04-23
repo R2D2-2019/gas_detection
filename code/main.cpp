@@ -5,13 +5,13 @@ template<typename T, std::size_t N>
 hwlib::ostream & operator<< (hwlib::ostream & out, const std::array<T, N> & rhs)
 {
     for(auto & object : rhs){
-      out << object << '\n';
+        out << object << '\n';
     }
     return out;
 }
 
 
-int main(void) {
+int main(void) { 
   // kill the watchdog
     WDT->WDT_MR = WDT_MR_WDDIS;
     hwlib::wait_ms(1000);
@@ -45,6 +45,6 @@ int main(void) {
 
     hwlib::cout << "calibrate result: " << static_cast<int>(mq_2.calibrate(10, 500)) << '\n';
     for(;;){
-      hwlib::cout << "read result: " << mq_2.read(1, 20) << '\n';
+        hwlib::cout << "get result: " << mq_2.get(1, 20) << '\n';
     }
 }
