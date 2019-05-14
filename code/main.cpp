@@ -22,27 +22,27 @@ int main(void) {
 
     constexpr int co_gas_id = 1;
     std::array<float, 3> co_gas_curve = {2.30, 0.72, -0.34}; //log table for co gas, reference to datasheet
-    mq_sensors_gas_curve_s co;
+    r2d2::mq_sensor::mq_sensors_gas_curve_s co;
     co.gas_id = co_gas_id;
     co.gas_curve = co_gas_curve;
 
     constexpr int lpg_gas_id = 0;
     std::array<float, 3> gas_lpg = {2.30, 0.72, -0.34}; //log table for LPG gas, reference to datasheet
-    mq_sensors_gas_curve_s lpg;
+    r2d2::mq_sensor::mq_sensors_gas_curve_s lpg;
     lpg.gas_id = lpg_gas_id;
     lpg.gas_curve = gas_lpg;
 
     constexpr int smoke_gas_id = 2;
     std::array<float, 3> gas_smoke = {2.3, 0.53, -0.44}; //log table for smoke
-    mq_sensors_gas_curve_s smoke;
+    r2d2::mq_sensor::mq_sensors_gas_curve_s smoke;
     smoke.gas_id = smoke_gas_id;
     smoke.gas_curve = gas_smoke;
 
     constexpr int gasses_amount = 3;
     
-    std::array<mq_sensors_gas_curve_s, gasses_amount> mq_2_gasses = {co, lpg, smoke};
+    std::array<r2d2::mq_sensor::mq_sensors_gas_curve_s, gasses_amount> mq_2_gasses = {co, lpg, smoke};
 
-    mq_sensor_c<gasses_amount> mq_2(mq_pin, rl, ro_clean_air_factor, mq_2_gasses);
+    r2d2::mq_sensor::mq_sensor_c<gasses_amount> mq_2(mq_pin, rl, ro_clean_air_factor, mq_2_gasses);
 
     
     hwlib::cout << "start heating" << '\n';
