@@ -1,11 +1,19 @@
 #pragma once
 #include <cmath>
+#include <array>
 
 namespace r2d2::gas_detection{
     
-    struct mq_sensors_gas_curve_s{
-        int gas_id;
-        std::array<float, 3> gas_curve = {};
+    class mq_sensors_gas_curve_c{
+        private:
+            int gas_id;
+            std::array<float, 3> gas_curve = {};
+        public:
+            mq_sensors_gas_curve_c(const int & gas_id, const std::array<float, 3> &gas_curve);
+            mq_sensors_gas_curve_c();
+
+            void set_gas_id(const int & gas_id_new);
+            void set_gas_curve(const std::array<float, 3> & gas_curve_new);
     };
 
 
@@ -20,13 +28,13 @@ namespace r2d2::gas_detection{
         int rl;
         int ro = 0;
         float ro_clean_air_factor;
-        std::array<mq_sensors_gas_curve_s, AmountOfGasses> gas_curves;
+        std::array<mq_sensors_gas_curve_c, AmountOfGasses> gas_curves;
         std::array<gas_s, AmountOfGasses> gasses;
 
         int resistance_calculation(int raw_adc);
 
     public: 
-        mq_sensor_c<AmountOfGasses>(hwlib::target::pin_adc & adc_pin, int rl, float ro_clean_air_factor, std::array<mq_sensors_gas_curve_s, AmountOfGasses> curve);
+        mq_sensor_c<AmountOfGasses>(hwlib::target::pin_adc & adc_pin, int rl, float ro_clean_air_factor, std::array<mq_sensors_gas_curve_c, AmountOfGasses> curve);
         
         /**
          * The mq sensors need to be calibrated in fresh air, this function provides this functionality.
@@ -42,7 +50,7 @@ namespace r2d2::gas_detection{
     };
 
     template<int AmountOfGasses>
-    mq_sensor_c<AmountOfGasses>::mq_sensor_c(hwlib::target::pin_adc & adc_pin, int rl, float ro_clean_air_factor, std::array<mq_sensors_gas_curve_s, AmountOfGasses> gas_curves)
+    mq_sensor_c<AmountOfGasses>::mq_sensor_c(hwlib::target::pin_adc & adc_pin, int rl, float ro_clean_air_factor, std::array<mq_sensors_gas_curve_c, AmountOfGasses> gas_curves)
     : adc_pin(adc_pin),
         rl(rl),
         ro_clean_air_factor(ro_clean_air_factor),

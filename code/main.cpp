@@ -21,25 +21,19 @@ int main(void) {
 
     constexpr int co_gas_id = 1;
     std::array<float, 3> gas_co_curve = {2.30, 0.72, -0.34}; //log table for co gas, reference to datasheet
-    r2d2::gas_detection::mq_sensors_gas_curve_s co;
-    co.gas_id = co_gas_id;
-    co.gas_curve = gas_co_curve;
+    r2d2::gas_detection::mq_sensors_gas_curve_c co(co_gas_id, gas_co_curve);
 
     constexpr int lpg_gas_id = 0;
     std::array<float, 3> gas_lpg_curve = {2.3, 0.21,-0.47}; //log table for LPG gas, reference to datasheet
-    r2d2::gas_detection::mq_sensors_gas_curve_s lpg;
-    lpg.gas_id = lpg_gas_id;
-    lpg.gas_curve = gas_lpg_curve;
+    r2d2::gas_detection::mq_sensors_gas_curve_c lpg(lpg_gas_id, gas_lpg_curve);
 
     constexpr int smoke_gas_id = 2;
     std::array<float, 3> gas_smoke_curve = {2.3, 0.53, -0.44}; //log table for smoke
-    r2d2::gas_detection::mq_sensors_gas_curve_s smoke;
-    smoke.gas_id = smoke_gas_id;
-    smoke.gas_curve = gas_smoke_curve;
+    r2d2::gas_detection::mq_sensors_gas_curve_c smoke(smoke_gas_id, gas_smoke_curve);
 
     constexpr int gasses_amount = 3;
     
-    std::array<r2d2::gas_detection::mq_sensors_gas_curve_s, gasses_amount> mq_2_gasses = {co, lpg, smoke};
+    std::array<r2d2::gas_detection::mq_sensors_gas_curve_c, gasses_amount> mq_2_gasses = {co, lpg, smoke};
 
     r2d2::gas_detection::mq_sensor_c<gasses_amount> mq_2(mq_pin, rl, ro_clean_air_factor, mq_2_gasses);
 
