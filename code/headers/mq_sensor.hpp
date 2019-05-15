@@ -1,16 +1,8 @@
 #pragma once
 #include <cmath>
-#include <hwlib.hpp>
 
-namespace r2d2::mq_sensor{
+namespace r2d2::gas_detection{
     
-    struct gas_s{
-        int gas_id, value;
-        friend hwlib::ostream &operator<< (hwlib::ostream &out, const gas_s &g){
-            return out << "gas_id: " << g.gas_id << " value: " << g.value;
-        }
-    };
-
     struct mq_sensors_gas_curve_s{
         int gas_id;
         std::array<float, 3> gas_curve = {};
