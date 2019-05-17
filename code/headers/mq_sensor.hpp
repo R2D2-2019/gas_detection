@@ -1,22 +1,9 @@
 #pragma once
 #include <cmath>
 #include <array>
+#include "mq_sensors_gas_curve_c.hpp"
 
 namespace r2d2::gas_detection{
-    
-    class mq_sensors_gas_curve_c{
-        private:
-            int gas_id;
-            std::array<float, 3> gas_curve = {};
-        public:
-            mq_sensors_gas_curve_c(const int & gas_id, const std::array<float, 3> &gas_curve);
-            mq_sensors_gas_curve_c();
-
-            void set_gas_id(const int & gas_id_new);
-            void set_gas_curve(const std::array<float, 3> & gas_curve_new);
-    };
-
-
     /**
      * Class mq_sensor_c provides the functionality to use all mq type sensors.
      */
@@ -56,7 +43,7 @@ namespace r2d2::gas_detection{
         ro_clean_air_factor(ro_clean_air_factor),
         gas_curves(gas_curves) {
         for (size_t i = 0; i < gas_curves.size(); i++) {
-            gasses[i].gas_id = gas_curves[i].gas_id;
+            gasses[i].gas_id = gas_curves[i].get_gas_id();
         }
     }
 
@@ -88,7 +75,7 @@ namespace r2d2::gas_detection{
         }
 
         for (size_t i = 0; i < gas_curves.size(); i++) {
-            gasses[i].value = static_cast<int>(pow(10, (((log((rs / sample_times) / ro) - gas_curves[i].gas_curve[1]) / gas_curves[i].gas_curve[2]) + gas_curves[i].gas_curve[0])));
+            gasses[i].value = static_cast<int>(pow(10, (((log((rs / sample_times) / ro) - gas_curves[i].get_gas_curve(1)) / gas_curves[i].get_gas_curve(2)) + gas_curves[i].get_gas_curve(0))));
         }
     
     return gasses;
