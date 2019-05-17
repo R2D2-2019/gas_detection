@@ -11,13 +11,23 @@ namespace r2d2::gas_detection{
     template<int AmountOfGasses>
     class mq_sensor_c{
     private:
+        /**
+        * TODO: doxy rl
+        * TODO: doxy ro
+        * TODO: doxy ro_clean_air_factor
+        * @return
+        */    
         hwlib::target::pin_adc & adc_pin;
         int rl;
         int ro = 0;
         float ro_clean_air_factor;
         std::array<mq_sensors_gas_curve_c, AmountOfGasses> gas_curves;
         std::array<gas_s, AmountOfGasses> gasses;
-
+        
+        /**
+        * TODO: doxy
+        * @return
+        */
         int resistance_calculation(int raw_adc);
 
     public: 
@@ -25,12 +35,11 @@ namespace r2d2::gas_detection{
         
         /**
          * The mq sensors need to be calibrated in fresh air, this function provides this functionality.
+         * @return
          */
         int calibrate(int sample_times, int interval_wait_ms);
         /**
          * Gets the gas values and returns them in an array of gas_s.
-         * There is a fairly complecated calculation required for this,
-         * information about this can be found on the wiki
          * @return
          */
         std::array<gas_s, AmountOfGasses> get(int sample_time, int interval_wait_ms);

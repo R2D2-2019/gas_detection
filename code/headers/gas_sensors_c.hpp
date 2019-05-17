@@ -35,7 +35,10 @@ namespace r2d2::gas_detection {
                 //process frame: return the asked values
             }
 
-            //update gas container
+            /**
+            * TODO: doxy
+            * @return
+            */
             for (gas_sensor_interface_base_c* sensor : sensors){
                 std::array<r2d2::gas_detection::gas_s, AmountOfGasses> sensor_data = sensor->gas_sensor_interface_c<AmountOfGasses>::get();
                 for (r2d2::gas_detection::gas_s gas : sensor_data){
