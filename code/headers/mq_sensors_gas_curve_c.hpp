@@ -23,11 +23,14 @@ namespace r2d2::gas_detection{
             std::array<float, 3> gas_curve = {};
         public:
         /**
-        * Multiple constructors so 
-        * 
+        * Multiple constructors to create an object with the gas id and gas curve
         * 
         **/
             mq_sensors_gas_curve_c(const int & gas_id, const std::array<float, 3> &gas_curve);
+            /**
+             * This constructor sets the gas curve values according to the gas_id.
+             * 0 is LPG, 1 is co, and 2 is smoke.
+             **/
             mq_sensors_gas_curve_c(const int & gas_id);
             /**
             * This functions sets the gas_id for a specific gas curve.
