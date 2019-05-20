@@ -18,9 +18,9 @@ namespace r2d2::gas_detection{
         * @return
         */    
         hwlib::target::pin_adc & adc_pin;
-        int rl;
+        int rl = 10; //found in datasheet
         int ro = 0;
-        float ro_clean_air_factor;
+        float ro_clean_air_factor = 9.83; // see datasheet air line;
         std::array<mq_sensors_gas_curve_c, AmountOfGasses> gas_curves;
         std::array<gas_s, AmountOfGasses> gasses;
         
@@ -31,7 +31,7 @@ namespace r2d2::gas_detection{
         int resistance_calculation(int raw_adc);
 
     public: 
-        mq_sensor_c<AmountOfGasses>(hwlib::target::pin_adc & adc_pin, int rl, float ro_clean_air_factor, std::array<mq_sensors_gas_curve_c, AmountOfGasses> curve);
+        mq_sensor_c<AmountOfGasses>(hwlib::target::pin_adc & adc_pin, std::array<mq_sensors_gas_curve_c, AmountOfGasses> curve);
         
         /**
          * The mq sensors need to be calibrated in fresh air, this function provides this functionality.
@@ -46,10 +46,8 @@ namespace r2d2::gas_detection{
     };
 
     template<int AmountOfGasses>
-    mq_sensor_c<AmountOfGasses>::mq_sensor_c(hwlib::target::pin_adc & adc_pin, int rl, float ro_clean_air_factor, std::array<mq_sensors_gas_curve_c, AmountOfGasses> gas_curves)
+    mq_sensor_c<AmountOfGasses>::mq_sensor_c(hwlib::target::pin_adc & adc_pin, std::array<mq_sensors_gas_curve_c, AmountOfGasses> gas_curves)
     : adc_pin(adc_pin),
-        rl(rl),
-        ro_clean_air_factor(ro_clean_air_factor),
         gas_curves(gas_curves) {
         for (size_t i = 0; i < gas_curves.size(); i++) {
             gasses[i].gas_id = gas_curves[i].get_gas_id();

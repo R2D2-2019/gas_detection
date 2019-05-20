@@ -6,7 +6,17 @@ namespace r2d2::gas_detection{
         : gas_id (gas_id), gas_curve (gas_curve)
     {}
 
-    mq_sensors_gas_curve_c::mq_sensors_gas_curve_c() = default;
+    mq_sensors_gas_curve_c::mq_sensors_gas_curve_c(const int & gas_id)
+    : gas_id(gas_id)
+    {
+        if(gas_id == GasType::lpg){
+            gas_curve = {2.3, 0.21,-0.47};
+        }else if(gas_id == GasType::co){
+            gas_curve = {2.30, 0.72, -0.34};
+        }else if(gas_id == GasType::smoke){
+            gas_curve = {2.3, 0.53, -0.44};
+        }
+    }
 
     void mq_sensors_gas_curve_c::set_gas_id(const int & gas_id_new){
         gas_id = gas_id_new;
@@ -23,5 +33,4 @@ namespace r2d2::gas_detection{
     float mq_sensors_gas_curve_c::get_gas_curve(const int & index){
         return gas_curve[index];
     }
-
 }
