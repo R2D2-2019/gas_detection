@@ -9,7 +9,7 @@ namespace r2d2::gas_detection{
      */
 
     template<int AmountOfGasses>
-    class mq_sensor_c{
+    class mq_sensor_c : public gas_sensor_interface_c<AmountOfGasses>{
     private:
         /**
         * TODO: doxy rl
@@ -20,6 +20,8 @@ namespace r2d2::gas_detection{
         hwlib::target::pin_adc & adc_pin;
         int rl = 10; //found in datasheet
         int ro = 0;
+        int sample_time;
+        int interval_time;
         float ro_clean_air_factor = 9.83; // see datasheet air line;
         std::array<mq_sensors_gas_curve_c, AmountOfGasses> gas_curves;
         std::array<gas_s, AmountOfGasses> gasses;
@@ -37,12 +39,15 @@ namespace r2d2::gas_detection{
          * The mq sensors need to be calibrated in fresh air, this function provides this functionality.
          * @return
          */
-        int calibrate(int sample_times, int interval_wait_ms);
+        
+        void calibrate();
         /**
          * Gets the gas values and returns them in an array of gas_s.
          * @return
          */
-        std::array<gas_s, AmountOfGasses> get(int sample_time, int interval_wait_ms);
+        std::array<gas_s, AmountOfGasses> get() override;
+
+        void set_sample_interval_time(int new_sample_time, int new_interval_time);
     };
 
     template<int AmountOfGasses>
@@ -55,16 +60,15 @@ namespace r2d2::gas_detection{
     }
 
     template<int AmountOfGasses>
-    int mq_sensor_c<AmountOfGasses>::calibrate(int sample_times, int interval_wait_ms){
+    void mq_sensor_c<AmountOfGasses>::calibrate(){
         int val = 0;
-        for (int i = 0; i < sample_times; i++) {
-        val += resistance_calculation(adc_pin.read());
-        hwlib::wait_ms(interval_wait_ms);
+        for (int i = 0; i < sample_time; i++) {
+            val += resistance_calculation(adc_pin.read());
+            hwlib::wait_ms(interval_time);
         }
-        val = (val/sample_times) / ro_clean_air_factor;
+        val = (val/sample_time) / ro_clean_air_factor;
         ro = val;
-        return val;
-
+        hwlib::cout << "ro: " << ro << '\n';
     };
 
     template<int AmountOfGasses>
@@ -73,18 +77,25 @@ namespace r2d2::gas_detection{
     };
 
     template<int AmountOfGasses>
-    std::array<gas_s, AmountOfGasses> mq_sensor_c<AmountOfGasses>::get(int sample_times, int interval_wait_ms){
+    std::array<gas_s, AmountOfGasses> mq_sensor_c<AmountOfGasses>::get(){
         int rs = 0;
-        for (int i = 0; i < sample_times; i++) {
+        for (int i = 0; i < sample_time; i++) {
             int read_value = resistance_calculation(adc_pin.read());
             rs += read_value;
-            hwlib::wait_ms(interval_wait_ms);
+            hwlib::wait_ms(interval_time);
         }
 
         for (size_t i = 0; i < gas_curves.size(); i++) {
-            gasses[i].value = static_cast<int>(pow(10, (((log((rs / sample_times) / ro) - gas_curves[i].get_gas_curve(1)) / gas_curves[i].get_gas_curve(2)) + gas_curves[i].get_gas_curve(0))));
+            gasses[i].value = static_cast<int>(pow(10, (((log((rs / sample_time) / ro) - gas_curves[i].get_gas_curve(1)) / gas_curves[i].get_gas_curve(2)) + gas_curves[i].get_gas_curve(0))));
         }
     
     return gasses;
     }
+
+    template<int AmountOfGasses>
+    void mq_sensor_c<AmountOfGasses>::set_sample_interval_time(int new_sample_time, int new_interval_time){
+        sample_time = new_sample_time;
+        interval_time = new_interval_time;
+    }
+
 } //namespace r2d2::mq_sensor
