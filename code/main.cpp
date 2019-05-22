@@ -16,14 +16,9 @@ int main(void) {
     hwlib::wait_ms(1000);
     auto mq_pin = hwlib::target::pin_adc(hwlib::target::ad_pins::a0);
 
-    constexpr int lpg_gas_id = 0;
-    r2d2::gas_detection::mq_sensors_gas_curve_c lpg(lpg_gas_id);
-
-    constexpr int co_gas_id = 1;
-    r2d2::gas_detection::mq_sensors_gas_curve_c co(co_gas_id);
-
-    constexpr int smoke_gas_id = 2;
-    r2d2::gas_detection::mq_sensors_gas_curve_c smoke(smoke_gas_id);
+    r2d2::gas_detection::mq_sensors_gas_curve_c lpg(static_cast<int>(r2d2::gas_detection::gas_type::LPG));
+    r2d2::gas_detection::mq_sensors_gas_curve_c co(static_cast<int>(r2d2::gas_detection::gas_type::CO));
+    r2d2::gas_detection::mq_sensors_gas_curve_c smoke(static_cast<int>(r2d2::gas_detection::gas_type::SMOKE));
 
     constexpr int gasses_amount = 3;
     
@@ -35,9 +30,12 @@ int main(void) {
     //hwlib::wait_ms(20'000); // the module needs to heat up!
     hwlib::cout << "done heating" << '\n';
 
-    hwlib::cout << "calibrate result: " << static_cast<int>(mq_2.calibrate(10, 500)) << '\n';
+    //hwlib::cout << "calibrate result: " << static_cast<int>(mq_2.calibrate(10, 500)) << '\n';
+    mq_2.set_sample_interval_time(10, 500);
+    mq_2.calibrate();
+    mq_2.set_sample_interval_time(1, 20);
     for(;;){
-        hwlib::cout << mq_2.get(1, 20) << '\n';
-        //hwlib::cout << "get result: " << mq_pin.read() << '\n';
+        hwlib::cout << mq_2.get() << '\n';
+        hwlib::cout << "raw value: " << mq_pin.read() << '\n';
     }
 }

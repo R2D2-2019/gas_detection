@@ -9,11 +9,11 @@ namespace r2d2::gas_detection{
     mq_sensors_gas_curve_c::mq_sensors_gas_curve_c(const int & gas_id)
     : gas_id(gas_id)
     {
-        if(gas_id == GasType::lpg){
+        if(gas_id == static_cast<int>(gas_type::LPG)){
             gas_curve = {2.3, 0.21,-0.47};
-        }else if(gas_id == GasType::co){
+        }else if(gas_id == static_cast<int>(gas_type::CO)){
             gas_curve = {2.30, 0.72, -0.34};
-        }else if(gas_id == GasType::smoke){
+        }else if(gas_id == static_cast<int>(gas_type::SMOKE)){
             gas_curve = {2.3, 0.53, -0.44};
         }
     }

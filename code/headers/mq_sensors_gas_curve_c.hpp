@@ -1,23 +1,16 @@
 #pragma once
 #include <array>
+#include "gas_enums.hpp"
 
 namespace r2d2::gas_detection{
-    /**
-     * Enum class to define which gas has what ID. These ID's are always matched with the gas type.
-     * If more gasses are used(for example more MQ sensors), add them here.
-     */
-    enum GasType: uint_fast8_t{
-        lpg = 0,
-        co = 1,
-        smoke = 2
-    };
+
 /**
  * Class mq_sensors_gas_curve_c provides the ability to create gas_curves for the mq_sensor.
  * Each gas has its own logarithmic curve.
  * The first 2 values are points on the curve, the 3rd value is the slope increment.
  * @return
  */
-    class mq_sensors_gas_curve_c{
+    class mq_sensors_gas_curve_c {
         private:
             int gas_id;
             std::array<float, 3> gas_curve = {};
