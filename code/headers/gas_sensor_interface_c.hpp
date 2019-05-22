@@ -9,7 +9,10 @@ namespace r2d2::gas_detection {
      * We cant do this directly because gas_sensor_interface_c is an templated class.
      */
     class gas_sensor_interface_base_c {
-        virtual void calibrate();
+        /**
+         * This function calibrates the sensor.
+         */
+        virtual void calibrate() = 0;
 
     };
 
@@ -29,13 +32,7 @@ namespace r2d2::gas_detection {
          * @internal
          * @return
          */
-        virtual std::array<r2d2::gas_detection::gas_s, AmountOfGasses> get(); 
-
-        /**
-         * This function calibrates the sensor.
-         */
-        virtual void calibrate(); 
-          
+        virtual std::array<r2d2::gas_detection::gas_s, AmountOfGasses> get() = 0;          
     };
 
 }
