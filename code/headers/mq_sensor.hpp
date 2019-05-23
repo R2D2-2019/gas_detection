@@ -73,7 +73,6 @@ namespace r2d2::gas_detection {
         }
         val = (val / sample_time) / ro_clean_air_factor;
         ro = val;
-        hwlib::cout << "ro: " << ro << '\n';
     };
 
     template <int AmountOfGasses>

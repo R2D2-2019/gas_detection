@@ -14,9 +14,12 @@ int main(void) {
     // kill the watchdog
     WDT->WDT_MR = WDT_MR_WDDIS;
     hwlib::wait_ms(1000);
+    // The pin to read the analogue value of mq_sensor.
     auto mq_pin = hwlib::target::pin_adc(hwlib::target::ad_pins::a0);
+
     r2d2::comm_c comm1;
 
+    // Define the amount of gasses and sensors here.
     constexpr int sensors_amount = 1;
     constexpr int gasses_amount = 3;
 
@@ -67,13 +70,14 @@ int main(void) {
     // hwlib::wait_ms(20'000); // the module needs to heat up!
     hwlib::cout << "done heating" << '\n';
 
-    // hwlib::cout << "calibrate result: " <<
-    // static_cast<int>(mq_2.calibrate(10, 500)) << '\n';
+    // Setting interval and sample time for calibration.
     mq_2.set_sample_interval_time(10, 500);
     mq_2.calibrate();
+
+    // Setting interval and sample time for getting results.
     mq_2.set_sample_interval_time(1, 20);
+
     for (;;) {
-        hwlib::cout << mq_2.get() << '\n';
-        hwlib::cout << "raw value: " << mq_pin.read() << '\n';
+        gas_sensors.process();
     }
 }

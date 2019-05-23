@@ -33,30 +33,42 @@ namespace r2d2::gas_detection {
         }
 
         void process() override {
+            frame_gas_s frame_gas;
+            bool has_send = false;
             while (comm.has_data()) {
                 auto frame = comm.get_data();
-
                 // process frame: return the asked values
-            }
 
-            /**
-             * TODO: doxy
-             * @return
-             */
-            for (gas_sensor_interface_c<AmountOfGasses> *sensor : sensors) {
-                // std::array<r2d2::gas_detection::gas_s, AmountOfGasses>
-                // sensor_data =
-                // sensor->gas_sensor_interface_c<AmountOfGasses>::get();
-                // gas_sensor_interface_base_c* sensor =
-                // (r2d2::gas_detection::gas_sensor_interface_c*) sensor;
-
-                std::array<r2d2::gas_detection::gas_s, AmountOfGasses>
-                    sensor_data =
-                        sensor->r2d2::gas_detection::gas_sensor_interface_c<
-                            AmountOfGasses>::get();
-                for (r2d2::gas_detection::gas_s gas : sensor_data) {
-                    container.set(gas.gas_id, gas.value);
+                /**
+                 * TODO: doxy
+                 * @return
+                 */
+                for (gas_sensor_interface_c<AmountOfGasses> *sensor : sensors) {
+                    std::array<r2d2::gas_detection::gas_s, AmountOfGasses>
+                        sensor_data =
+                            sensor->r2d2::gas_detection::gas_sensor_interface_c<
+                                AmountOfGasses>::get();
+                    for (r2d2::gas_detection::gas_s gas : sensor_data) {
+                        container.set(gas.gas_id, gas.value);
+                    }
                 }
+
+                if (!frame.request && !has_send) {
+                    continue;
+                }
+
+                for (gas_sensor_interface_c<AmountOfGasses> *sensor : sensors) {
+                    std::array<r2d2::gas_detection::gas_s, AmountOfGasses>
+                        sensor_data =
+                            sensor->r2d2::gas_detection::gas_sensor_interface_c<
+                                AmountOfGasses>::get();
+                    for (r2d2::gas_detection::gas_s gas : sensor_data) {
+                        frame_gas.gas_id = gas.gas_id;
+                        frame_gas.gas_value = gas.value;
+                        comm.send(frame_gas);
+                    }
+                }
+                has_send = true;
             }
         }
     };

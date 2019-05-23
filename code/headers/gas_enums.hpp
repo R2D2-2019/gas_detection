@@ -6,6 +6,6 @@ namespace r2d2::gas_detection {
      * the gas type. If more gasses are used(for example more MQ sensors), add
      * them here.
      */
-    enum class gas_type : uint8_t { LPG = 0, CO = 1, SMOKE = 2 };
+    enum class gas_type { LPG = 0, CO = 1, SMOKE = 2 };
 
 } // namespace r2d2::gas_detection
