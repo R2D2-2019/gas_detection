@@ -18,7 +18,7 @@ namespace r2d2::gas_detection {
         gas_container_c<AmountOfGasses> container;
 
     public:
-        gas_sensors_c(base_comm_c &comm, gas_container_c<AmountOfGasses> container)
+        gas_sensors_c(base_comm_c &comm,std::array<gas_sensor_interface_base_c*, AmountOfSensors> & sensors, gas_container_c<AmountOfGasses> & container)
             : base_module_c(comm),
               container(container)
                 
@@ -40,6 +40,7 @@ namespace r2d2::gas_detection {
             * @return
             */
             for (gas_sensor_interface_base_c* sensor : sensors){
+                //std::array<r2d2::gas_detection::gas_s, AmountOfGasses> sensor_data = sensor->gas_sensor_interface_c<AmountOfGasses>::get();
                 std::array<r2d2::gas_detection::gas_s, AmountOfGasses> sensor_data = sensor->gas_sensor_interface_c<AmountOfGasses>::get();
                 for (r2d2::gas_detection::gas_s gas : sensor_data){
                     container.set(gas.gas_id, gas.value);
