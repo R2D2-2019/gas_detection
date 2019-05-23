@@ -45,7 +45,7 @@ int main(void) {
     r2d2::gas_detection::mq_sensor_c<gasses_amount> mq_2(mq_pin, mq_2_gas_curves);
 
     //Create an array with all gas sensor pointers.
-    std::array<r2d2::gas_detection::gas_sensor_interface_base_c*, sensors_amount> gas_sensors_ptrs = {&mq_2};
+    std::array<r2d2::gas_detection::gas_sensor_interface_c<gasses_amount>*, sensors_amount> gas_sensors_ptrs = {&mq_2};
 
     // Create an object which has the pointers of gas sensors, container of gas structs,
     // and able to send all information over the CAN bus.
