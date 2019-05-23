@@ -7,7 +7,6 @@ namespace r2d2::gas_detection {
      */
     template<int AmountOfGasses>
     class gas_container_c{
-    private:
         std::array<gas_s, AmountOfGasses> gasses;
     public:
         gas_container_c(std::array<gas_s, AmountOfGasses> gasses)
@@ -31,7 +30,7 @@ namespace r2d2::gas_detection {
          * This function is used to set values in the container. 
          */
         bool set (int gas_id, int value){
-            for (const gas_s &gas : gasses){
+            for (gas_s &gas : gasses){
                 if (gas.gas_id == gas_id){
                     gas.value = value;
                     return true; // succesfully set gas. 
