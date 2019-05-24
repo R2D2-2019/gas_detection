@@ -12,37 +12,37 @@ namespace r2d2::gas_detection {
      * requested. This class also makes sure the gas container stays up to date.
      */
     template <int AmountOfSensors, int AmountOfGasses>
-    class gas_sensors_c : public base_module_c {
+    class module_c : public base_module_c {
     private:
         std::array<gas_sensor_interface_c<AmountOfGasses> *, AmountOfSensors>
             sensors;
         gas_container_c<AmountOfGasses> container;
 
     public:
-        gas_sensors_c(base_comm_c &comm,
-                      std::array<gas_sensor_interface_c<AmountOfGasses> *,
-                                 AmountOfSensors> &sensors,
-                      gas_container_c<AmountOfGasses> &container)
+        module_c(base_comm_c &comm,
+                 std::array<gas_sensor_interface_c<AmountOfGasses> *,
+                            AmountOfSensors> &sensors,
+                 gas_container_c<AmountOfGasses> &container)
             : base_module_c(comm),
               container(container)
 
         {
-            comm.listen_for_frames({r2d2::frame_type::ALL}
+            comm.listen_for_frames({r2d2::frame_type::GAS}
                                    // should become only gas requests.
             );
         }
-
+        /**
+         * The process function updates the container with the gasses and their
+         * values. If it has received a frame request, it will send all gas ID's
+         * and values one by one.
+         * @return
+         */
         void process() override {
             frame_gas_s frame_gas;
             bool has_send = false;
             while (comm.has_data()) {
                 auto frame = comm.get_data();
-                // process frame: return the asked values
 
-                /**
-                 * TODO: doxy
-                 * @return
-                 */
                 for (gas_sensor_interface_c<AmountOfGasses> *sensor : sensors) {
                     std::array<r2d2::gas_detection::gas_s, AmountOfGasses>
                         sensor_data =

@@ -63,11 +63,11 @@ int main(void) {
 
     // Create an object which has the pointers of gas sensors, container of gas
     // structs, and able to send all information over the CAN bus.
-    r2d2::gas_detection::gas_sensors_c<sensors_amount, gasses_amount>
-        gas_sensors(comm1, gas_sensors_ptrs, container_gasses);
+    r2d2::gas_detection::module_c<sensors_amount, gasses_amount> gas_sensors(
+        comm1, gas_sensors_ptrs, container_gasses);
 
     hwlib::cout << "start heating" << '\n';
-    // hwlib::wait_ms(20'000); // the module needs to heat up!
+    hwlib::wait_ms(20'000); // the module needs to heat up!
     hwlib::cout << "done heating" << '\n';
 
     // Setting interval and sample time for calibration.
