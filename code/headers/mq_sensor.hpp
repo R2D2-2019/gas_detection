@@ -12,22 +12,24 @@ namespace r2d2::gas_detection {
     class mq_sensor_c : public gas_sensor_interface_c<AmountOfGasses> {
     private:
         /**
-         * TODO: doxy rl
-         * TODO: doxy ro
-         * TODO: doxy ro_clean_air_factor
+         * @param [rl] The load resistance on the board in kilo ohms.
+         * @param [ro] The value of resistance in gas concentration.
+         * @param [ro_clean_air_factor] The value of resistance in fresh air.
+         * This can be different with other MQ sensors.
          * @return
          */
         hwlib::target::pin_adc &adc_pin;
-        int rl = 10; // found in datasheet
+        int rl = 10;
         int ro = 0;
         int sample_time;
         int interval_time;
-        float ro_clean_air_factor = 9.83; // see datasheet air line;
+        float ro_clean_air_factor = 9.83;
         std::array<mq_sensors_gas_curve_c, AmountOfGasses> gas_curves;
         std::array<gas_s, AmountOfGasses> gasses;
 
         /**
-         * TODO: doxy
+         * This function returns the resistance(potentiometer) of the sensor by
+         * reading the raw analogue value.
          * @return
          */
         int resistance_calculation(int raw_adc);
@@ -39,7 +41,9 @@ namespace r2d2::gas_detection {
 
         /**
          * The mq sensors need to be calibrated in fresh air, this function
-         * provides this functionality.
+         * provides this functionality. It uses the resistance_calculation
+         * function to calculate the sensor resistance in clean air and then
+         * divides it with the ro_clean_air_factor.
          * @return
          */
 

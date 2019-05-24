@@ -39,9 +39,7 @@ namespace r2d2::gas_detection {
                     return true; // succesfully set gas.
                 }
             }
-            return false; // gas not in array. (We need to make sure all gasses
-                          // are already in the array from the start. This needs
-                          // another look, but works for now)
+            return false; // gas not in array.
         }
     };
 
