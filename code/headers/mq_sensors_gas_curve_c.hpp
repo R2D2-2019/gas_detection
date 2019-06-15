@@ -18,8 +18,7 @@ namespace r2d2::gas_detection {
     public:
         /**
          * Multiple constructors to create an object with the gas id and gas
-         *curve
-         *
+         * curve
          **/
         mq_sensors_gas_curve_c(const int &gas_id,
                                const std::array<float, 3> &gas_curve);
