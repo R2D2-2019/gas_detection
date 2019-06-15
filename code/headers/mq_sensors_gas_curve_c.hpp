@@ -1,5 +1,5 @@
 #pragma once
-#include "gas_enums.hpp"
+#include <gas_enums.hpp>
 #include <array>
 
 namespace r2d2::gas_detection {

@@ -1,5 +1,5 @@
 #pragma once
-#include "mq_sensors_gas_curve_c.hpp"
+#include <mq_sensors_gas_curve_c.hpp>
 #include <array>
 #include <cmath>
 

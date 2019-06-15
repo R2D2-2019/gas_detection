@@ -1,5 +1,5 @@
-#include "comm.hpp"
-#include "hwlib.hpp"
+#include <comm.hpp>
+#include <hwlib.hpp>
 #include <gas_sensors_c.hpp>
 
 template <typename T, std::size_t N>
