@@ -28,7 +28,6 @@ namespace r2d2::gas_detection {
 
         {
             comm.listen_for_frames({r2d2::frame_type::GAS}
-                                   // should become only gas requests.
             );
         }
         /**
