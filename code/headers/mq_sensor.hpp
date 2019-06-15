@@ -12,11 +12,13 @@ namespace r2d2::gas_detection {
     class mq_sensor_c : public gas_sensor_interface_c<AmountOfGasses> {
     private:
         hwlib::target::pin_adc &adc_pin;
-        int rl = 10; /**< The load resistance on the board in kilo ohms. */
+        constexpr static int rl =
+            10;     /**< The load resistance on the board in kilo ohms. */
         int ro = 0; /**< The value of resistance in gas concentration.r */
         int sample_time;
         int interval_time;
-        float ro_clean_air_factor = 9.83; /**< The value of resistance in fresh air. */
+        constexpr static float ro_clean_air_factor =
+            9.83; /**< The value of resistance in fresh air. */
         std::array<mq_sensors_gas_curve_c, AmountOfGasses> gas_curves;
         std::array<gas_s, AmountOfGasses> gasses;
 
