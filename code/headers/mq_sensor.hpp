@@ -41,8 +41,8 @@ namespace r2d2::gas_detection {
          * divides it with the ro_clean_air_factor.
          * @return
          */
-
         void calibrate();
+
         /**
          * Gets the gas values and returns them in an array of gas_s.
          * @return
