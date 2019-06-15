@@ -18,8 +18,7 @@ namespace r2d2::gas_detection {
         } else if (gas_id ==
                    static_cast<int>(r2d2::gas_detection::gas_type::SMOKE)) {
             gas_curve = {2.3, 0.53, -0.44};
-        }
-        else if (gas_id ==
+        } else if (gas_id ==
                    static_cast<int>(r2d2::gas_detection::gas_type::ALCOHOL)) {
             gas_curve = {5.0, 0.4, -1.413};
         }
