@@ -1,5 +1,5 @@
-#include "mq_sensors_gas_curve_c.hpp"
-#include "gas_enums.hpp"
+#include <mq_sensors_gas_curve_c.hpp>
+#include <gas_enums.hpp>
 #include <array>
 
 namespace r2d2::gas_detection {
