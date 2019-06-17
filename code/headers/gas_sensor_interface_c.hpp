@@ -11,8 +11,6 @@ namespace r2d2::gas_detection {
     template <int AmountOfGasses>
     class gas_sensor_interface_c {
     public:
-        gas_sensor_interface_c() {
-        }
 
         /**
          *  This function gets the return value from the gas sensor.
