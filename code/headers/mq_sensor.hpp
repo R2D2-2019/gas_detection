@@ -63,16 +63,15 @@ namespace r2d2::gas_detection {
          * @return An array of gasses(gas_s) and it current value.
          */
         std::array<gas_s, AmountOfGasses> get() override {
-            int rs = 0;
+            int total_resistance = 0;
             for (int i = 0; i < sample_time; i++) {
-                int read_value = resistance_calculation(adc_pin.read());
-                rs += read_value;
+                total_resistance = resistance_calculation(adc_pin.read());
                 hwlib::wait_ms(interval_time);
             }
 
             for (size_t i = 0; i < gas_curves.size(); i++) {
                 gasses[i].value = static_cast<int>(pow(
-                    10, (((log((rs / sample_time) / 
+                    10, (((log((total_resistance / sample_time) / 
 			        gas_concenstration_resistance) -
                                gas_curves[i].get_gas_curve(1)) /
                               gas_curves[i].get_gas_curve(2)) +
