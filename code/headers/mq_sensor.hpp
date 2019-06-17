@@ -12,9 +12,9 @@ namespace r2d2::gas_detection {
     class mq_sensor_c : public gas_sensor_interface_c<AmountOfGasses> {
     private:
         hwlib::target::pin_adc &adc_pin;
-        constexpr static int rl =
+        constexpr static int board_resistance =
             10;     /**< The load resistance on the board in kilo ohms. */
-        int ro = 0; /**< The value of resistance in gas concentration.r */
+        int gas_concenstration_resistance = 0; /**< The value of resistance in gas concentration.r */
         int sample_time;
         int interval_time;
         constexpr static float ro_clean_air_factor =
@@ -28,7 +28,7 @@ namespace r2d2::gas_detection {
          * @return An integer value representing resistance of the sensor.
          */
         int resistance_calculation(int raw_adc) {
-            return rl * (4095 - raw_adc) / raw_adc;
+            return board_resistance * (4095 - raw_adc) / raw_adc;
          }
 
     public:
@@ -54,7 +54,7 @@ namespace r2d2::gas_detection {
                 hwlib::wait_ms(interval_time);
             }
             val = (val / sample_time) / ro_clean_air_factor;
-            ro = val;
+            gas_concenstration_resistance = val;
         };            
 
         /**
@@ -70,8 +70,9 @@ namespace r2d2::gas_detection {
             }
 
             for (size_t i = 0; i < gas_curves.size(); i++) {
-                gasses[i].value = static_cast<int>(
-                    pow(10, (((log((rs / sample_time) / ro) -
+                gasses[i].value = static_cast<int>(pow(
+                    10, (((log((rs / sample_time) / 
+			        gas_concenstration_resistance) -
                                gas_curves[i].get_gas_curve(1)) /
                               gas_curves[i].get_gas_curve(2)) +
                              gas_curves[i].get_gas_curve(0))));
