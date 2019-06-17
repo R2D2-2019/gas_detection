@@ -23,7 +23,7 @@ int main(void) {
     constexpr int sensors_amount = 1;
     constexpr int gasses_amount = 3;
 
-    // creating objects that contain the gas curve used by mq sensors.
+    // Creating objects that contain the gas curve used by mq sensors.
     r2d2::gas_detection::mq_sensors_gas_curve_c lpg(
         static_cast<int>(r2d2::gas_detection::gas_type::LPG));
     r2d2::gas_detection::mq_sensors_gas_curve_c co(
@@ -31,8 +31,7 @@ int main(void) {
     r2d2::gas_detection::mq_sensors_gas_curve_c smoke(
         static_cast<int>(r2d2::gas_detection::gas_type::SMOKE));
 
-    // creating structs that store the ID and value.
-
+    // Creating structs that store the ID and value.
     r2d2::gas_detection::gas_s gas_s_lpg = {
         static_cast<int>(r2d2::gas_detection::gas_type::LPG), 0};
     r2d2::gas_detection::gas_s gas_s_co = {

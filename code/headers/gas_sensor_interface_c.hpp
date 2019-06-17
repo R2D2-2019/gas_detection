@@ -7,7 +7,6 @@ namespace r2d2::gas_detection {
     /**
      * Class gas_sensor_interface_c provides an interface of all the gas
      * sensors.
-     *
      */
     template <int AmountOfGasses>
     class gas_sensor_interface_c {
@@ -16,7 +15,7 @@ namespace r2d2::gas_detection {
         }
 
         /**
-         *  This funtion gets the return value from the gas sensor.
+         *  This function gets the return value from the gas sensor.
          *  This can be either a PPM value or a ml/L.
          *
          * @internal

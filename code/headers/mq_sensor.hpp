@@ -81,6 +81,10 @@ namespace r2d2::gas_detection {
             return gasses;
         }       
 
+        /**
+         * Sets the sample time and interval time. 
+         * @return
+         */
         void set_sample_interval_time(int new_sample_time,
                                       int new_interval_time){
             sample_time = new_sample_time;

@@ -67,4 +67,5 @@ namespace r2d2::gas_detection {
             }
         }
     };
+
 } // namespace r2d2::gas_detection
