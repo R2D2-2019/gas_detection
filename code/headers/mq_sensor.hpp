@@ -25,7 +25,7 @@ namespace r2d2::gas_detection {
         /**
          * This function returns the resistance(potentiometer) of the sensor by
          * reading the raw analogue value.
-         * @return
+         * @return An integer value representing resistance of the sensor.
          */
         int resistance_calculation(int raw_adc) {
             return rl * (4095 - raw_adc) / raw_adc;
@@ -46,7 +46,6 @@ namespace r2d2::gas_detection {
          * provides this functionality. It uses the resistance_calculation
          * function to calculate the sensor resistance in clean air and then
          * divides it with the ro_clean_air_factor.
-         * @return
          */
         void calibrate() {
             int val = 0;
@@ -60,7 +59,7 @@ namespace r2d2::gas_detection {
 
         /**
          * Gets the gas values and returns them in an array of gas_s.
-         * @return
+         * @return An array of gasses(gas_s) and it current value.
          */
         std::array<gas_s, AmountOfGasses> get() override {
             int rs = 0;
@@ -83,7 +82,6 @@ namespace r2d2::gas_detection {
 
         /**
          * Sets the sample time and interval time. 
-         * @return
          */
         void set_sample_interval_time(int new_sample_time,
                                       int new_interval_time){

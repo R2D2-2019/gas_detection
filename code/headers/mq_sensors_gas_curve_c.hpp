@@ -8,7 +8,6 @@ namespace r2d2::gas_detection {
      * Class mq_sensors_gas_curve_c provides the ability to create gas_curves
      * for the mq_sensor. Each gas has its own logarithmic curve. The first 2
      * values are points on the curve, the 3rd value is the slope increment.
-     * @return
      */
     class mq_sensors_gas_curve_c {
     private:

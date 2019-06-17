@@ -34,7 +34,6 @@ namespace r2d2::gas_detection {
          * The process function updates the container with the gasses and their
          * values. If it has received a frame request, it will send all gas ID's
          * and values one by one.
-         * @return
          */
         void process() override {
             frame_gas_s frame_gas;

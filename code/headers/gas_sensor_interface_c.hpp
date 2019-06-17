@@ -17,7 +17,7 @@ namespace r2d2::gas_detection {
          *  This can be either a PPM value or a ml/L.
          *
          * @internal
-         * @return
+         * @return Value of the gas sensor in PPM or ml/L.
          */
         virtual std::array<r2d2::gas_detection::gas_s, AmountOfGasses>
         get() = 0;
