@@ -48,13 +48,14 @@ namespace r2d2::gas_detection {
          * divides it with the ro_clean_air_factor.
          */
         void calibrate() {
-            int val = 0;
+            int total_resistance = 0;
             for (int i = 0; i < sample_time; i++) {
-                val += resistance_calculation(adc_pin.read());
+                total_resistance += resistance_calculation(adc_pin.read());
                 hwlib::wait_ms(interval_time);
             }
-            val = (val / sample_time) / ro_clean_air_factor;
-            gas_concenstration_resistance = val;
+            total_resistance =
+                (total_resistance / sample_time) / ro_clean_air_factor;
+            gas_concenstration_resistance = total_resistance;
         };            
 
         /**
