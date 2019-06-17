@@ -1,6 +1,7 @@
-#include <mq_sensors_gas_curve_c.hpp>
-#include <gas_enums.hpp>
+#include "../headers/gas_enums.hpp"
 #include <array>
+#include <gas_enums.hpp>
+#include <mq_sensors_gas_curve_c.hpp>
 
 namespace r2d2::gas_detection {
     mq_sensors_gas_curve_c::mq_sensors_gas_curve_c(
@@ -10,17 +11,20 @@ namespace r2d2::gas_detection {
 
     mq_sensors_gas_curve_c::mq_sensors_gas_curve_c(const int &gas_id)
         : gas_id(gas_id) {
-        if (gas_id == static_cast<int>(r2d2::gas_detection::gas_type::LPG)) {
+        gas_type gas = static_cast<gas_type>(gas_id);
+        switch (gas) {
+        case r2d2::gas_detection::gas_type::LPG:
             gas_curve = {2.3, 0.21, -0.47};
-        } else if (gas_id ==
-                   static_cast<int>(r2d2::gas_detection::gas_type::CO)) {
+            break;
+        case r2d2::gas_detection::gas_type::CO:
             gas_curve = {2.3, 0.72, -0.34};
-        } else if (gas_id ==
-                   static_cast<int>(r2d2::gas_detection::gas_type::SMOKE)) {
+            break;
+        case r2d2::gas_detection::gas_type::SMOKE:
             gas_curve = {2.3, 0.53, -0.44};
-        } else if (gas_id ==
-                   static_cast<int>(r2d2::gas_detection::gas_type::ALCOHOL)) {
+            break;
+        case r2d2::gas_detection::gas_type::ALCOHOL:
             gas_curve = {5.0, 0.4, -1.413};
+            break;
         }
     }
 
