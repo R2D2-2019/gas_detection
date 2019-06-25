@@ -25,19 +25,19 @@ int main(void) {
 
     // Creating objects that contain the gas curve used by mq sensors.
     r2d2::gas_detection::mq_sensors_gas_curve_c lpg(
-        static_cast<int>(r2d2::gas_detection::gas_type::LPG));
+        r2d2::gas_detection::gas_type::LPG);
     r2d2::gas_detection::mq_sensors_gas_curve_c co(
-        static_cast<int>(r2d2::gas_detection::gas_type::CO));
+        r2d2::gas_detection::gas_type::CO);
     r2d2::gas_detection::mq_sensors_gas_curve_c smoke(
-        static_cast<int>(r2d2::gas_detection::gas_type::SMOKE));
+        r2d2::gas_detection::gas_type::SMOKE);
 
     // Creating structs that store the ID and value.
     r2d2::gas_detection::gas_s gas_s_lpg = {
-        static_cast<int>(r2d2::gas_detection::gas_type::LPG), 0};
+		r2d2::gas_detection::gas_type::LPG, 0};
     r2d2::gas_detection::gas_s gas_s_co = {
-        static_cast<int>(r2d2::gas_detection::gas_type::CO), 0};
+		r2d2::gas_detection::gas_type::CO, 0};
     r2d2::gas_detection::gas_s gas_s_smoke = {
-        static_cast<int>(r2d2::gas_detection::gas_type::SMOKE), 0};
+        r2d2::gas_detection::gas_type::SMOKE, 0};
 
     // Create MQ-2 sensor object with corresponding gas curves.
     std::array<r2d2::gas_detection::mq_sensors_gas_curve_c, gasses_amount>

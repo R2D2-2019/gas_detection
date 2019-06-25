@@ -21,7 +21,7 @@ namespace r2d2::gas_detection {
          * The function then returns the value of the gas. This value can be
          * either PPM or ml/L (which of the 2 is also found on the wiki).
          */
-        int get(int gas_id) {
+        int get(gas_type gas_id) {
             for (const gas_s &gas : gasses) {
                 if (gas.gas_id == gas_id) {
                     return gas.value;
@@ -33,7 +33,7 @@ namespace r2d2::gas_detection {
         /**
          * This function is used to set values in the container.
          */
-        bool set(int gas_id, int value) {
+        bool set(gas_type gas_id, int value) {
             for (gas_s &gas : gasses) {
                 if (gas.gas_id == gas_id) {
                     gas.value = value;

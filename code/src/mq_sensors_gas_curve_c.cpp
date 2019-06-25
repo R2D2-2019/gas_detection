@@ -4,11 +4,11 @@
 
 namespace r2d2::gas_detection {
     mq_sensors_gas_curve_c::mq_sensors_gas_curve_c(
-        const int &gas_id, const std::array<float, 3> &gas_curve)
+        const gas_type &gas_id, const std::array<float, 3> &gas_curve)
         : gas_id(gas_id), gas_curve(gas_curve) {
     }
 
-    mq_sensors_gas_curve_c::mq_sensors_gas_curve_c(const int &gas_id)
+    mq_sensors_gas_curve_c::mq_sensors_gas_curve_c(const gas_type &gas_id)
         : gas_id(gas_id) {
         gas_type gas = static_cast<gas_type>(gas_id);
         switch (gas) {
@@ -27,7 +27,7 @@ namespace r2d2::gas_detection {
         }
     }
 
-    void mq_sensors_gas_curve_c::set_gas_id(const int &gas_id_new) {
+    void mq_sensors_gas_curve_c::set_gas_id(const gas_type &gas_id_new) {
         gas_id = gas_id_new;
     };
 
@@ -36,7 +36,7 @@ namespace r2d2::gas_detection {
         gas_curve = gas_curve_new;
     }
 
-    int mq_sensors_gas_curve_c::get_gas_id() {
+    gas_type mq_sensors_gas_curve_c::get_gas_id() {
         return gas_id;
     }
 

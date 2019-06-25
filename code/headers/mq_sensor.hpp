@@ -1,6 +1,7 @@
 #pragma once
 #include <array>
 #include <cmath>
+#include <gas_enums.hpp>
 #include <mq_sensors_gas_curve_c.hpp>
 
 namespace r2d2::gas_detection {

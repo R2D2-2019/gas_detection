@@ -1,4 +1,5 @@
 #pragma once
+#include <gas_enums.hpp>
 #include <hwlib.hpp>
 
 namespace r2d2::gas_detection {
@@ -8,7 +9,7 @@ namespace r2d2::gas_detection {
      * is) and the value of gas in parts per million.
      */
     struct gas_s {
-        int gas_id;
+        gas_type gas_id;
         int value;
 
         /**
@@ -16,7 +17,7 @@ namespace r2d2::gas_detection {
          * million.
          */
         friend hwlib::ostream &operator<<(hwlib::ostream &out, const gas_s &g) {
-            return out << "gas_id: " << g.gas_id << " value: " << g.value;
+            return out << "gas_id: " << int(g.gas_id) << " value: " << g.value;
         }
     };
 
