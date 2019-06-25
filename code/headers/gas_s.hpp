@@ -17,7 +17,8 @@ namespace r2d2::gas_detection {
          * million.
          */
         friend hwlib::ostream &operator<<(hwlib::ostream &out, const gas_s &g) {
-            return out << "gas_id: " << int(g.gas_id) << " value: " << g.value;
+            return out << "gas_id: " << static_cast<int>(g.gas_id)
+                       << " value: " << g.value;
         }
     };
 

@@ -55,7 +55,7 @@ namespace r2d2::gas_detection {
                     std::array<r2d2::gas_detection::gas_s, AmountOfGasses>
                         sensor_data = sensor->get();
                     for (r2d2::gas_detection::gas_s gas : sensor_data) {
-                        frame_gas.gas_id = uint8_t(gas.gas_id);
+                        frame_gas.gas_id = static_cast<uint8_t>(gas.gas_id);
                         frame_gas.gas_value = gas.value;
                         comm.send(frame_gas);
                     }
