@@ -1,6 +1,6 @@
 #include <comm.hpp>
-#include <hwlib.hpp>
 #include <gas_sensors_c.hpp>
+#include <hwlib.hpp>
 
 template <typename T, std::size_t N>
 hwlib::ostream &operator<<(hwlib::ostream &out, const std::array<T, N> &rhs) {
@@ -65,9 +65,9 @@ int main(void) {
     r2d2::gas_detection::module_c<sensors_amount, gasses_amount> gas_sensors(
         comm1, gas_sensors_ptrs, container_gasses);
 
-    hwlib::cout << "start heating" << '\n';
+    hwlib::cout << "Started heating..." << '\n';
     hwlib::wait_ms(20'000); // the module needs to heat up!
-    hwlib::cout << "done heating" << '\n';
+    hwlib::cout << "Done heating" << '\n';
 
     // Setting interval and sample time for calibration.
     mq_2.set_sample_interval_time(10, 500);
