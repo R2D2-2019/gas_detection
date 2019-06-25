@@ -12,14 +12,15 @@ namespace r2d2::gas_detection {
     class mq_sensor_c : public gas_sensor_interface_c<AmountOfGasses> {
     private:
         hwlib::target::pin_adc &adc_pin;
-        constexpr static int board_resistance =
-            10; /**< The load resistance on the board in kilo ohms. */
-        int gas_concenstration_resistance =
-            0; /**< The value of resistance in gas concentration.r */
+        /**< The load resistance on the board in kilo ohms. */
+        constexpr static int board_resistance = 10;
+        /**< The value of resistance in gas concentration.r */
+        int gas_concenstration_resistance = 0;
         int sample_time;
         int interval_time;
+        /**< The value of resistance in fresh air. */
         constexpr static float ro_clean_air_factor =
-            9.83; /**< The value of resistance in fresh air. */
+            9.83; // Sensor resistance in clean air,
         std::array<mq_sensors_gas_curve_c, AmountOfGasses> gas_curves;
         std::array<gas_s, AmountOfGasses> gasses;
 
@@ -69,7 +70,6 @@ namespace r2d2::gas_detection {
                 total_resistance = resistance_calculation(adc_pin.read());
                 hwlib::wait_ms(interval_time);
             }
-
             for (size_t i = 0; i < gas_curves.size(); i++) {
                 gasses[i].value = static_cast<int>(
                     pow(10, (((log((total_resistance / sample_time) /
@@ -78,7 +78,6 @@ namespace r2d2::gas_detection {
                               gas_curves[i].get_gas_curve(2)) +
                              gas_curves[i].get_gas_curve(0))));
             }
-
             return gasses;
         }
 
