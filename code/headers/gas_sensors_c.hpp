@@ -27,9 +27,9 @@ namespace r2d2::gas_detection {
               container(container)
 
         {
-            comm.listen_for_frames({r2d2::frame_type::GAS}
-            );
+            comm.listen_for_frames({r2d2::frame_type::GAS});
         }
+
         /**
          * The process function updates the container with the gasses and their
          * values. If it has received a frame request, it will send all gas ID's

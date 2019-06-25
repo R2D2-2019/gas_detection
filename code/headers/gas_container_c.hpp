@@ -2,6 +2,7 @@
 #include <array>
 #include <gas_s.hpp>
 namespace r2d2::gas_detection {
+
     /**
      * Class gas_container_c is a containers for all the gas values.
      */

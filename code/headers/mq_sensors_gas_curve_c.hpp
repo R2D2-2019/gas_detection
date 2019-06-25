@@ -1,6 +1,6 @@
 #pragma once
-#include <gas_enums.hpp>
 #include <array>
+#include <gas_enums.hpp>
 
 namespace r2d2::gas_detection {
 
@@ -21,23 +21,28 @@ namespace r2d2::gas_detection {
          **/
         mq_sensors_gas_curve_c(const int &gas_id,
                                const std::array<float, 3> &gas_curve);
+
         /**
          * This constructor sets the gas curve values according to the gas_id.
          * 0 is LPG, 1 is co, and 2 is smoke.
          **/
         mq_sensors_gas_curve_c(const int &gas_id);
+
         /**
          * This functions sets the gas_id for a specific gas curve.
          */
         void set_gas_id(const int &gas_id_new);
+
         /**
          * This functions sets the gas_curve values for a specific gas curve.
          */
         void set_gas_curve(const std::array<float, 3> &gas_curve_new);
+
         /**
          * This functions returns the gas_id.
          */
         int get_gas_id();
+
         /**
          * This functions returns the specific value(specified by the index) of
          * a gas_curve.

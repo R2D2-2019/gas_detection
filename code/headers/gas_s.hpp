@@ -2,6 +2,7 @@
 #include <hwlib.hpp>
 
 namespace r2d2::gas_detection {
+
     /**
      * This is a container which has the gas_id(which corresponds which gas it
      * is) and the value of gas in parts per million.
@@ -9,6 +10,7 @@ namespace r2d2::gas_detection {
     struct gas_s {
         int gas_id;
         int value;
+
         /**
          * An operator which outputs the gas_id and the value in parts per
          * million.
