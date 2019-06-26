@@ -6,12 +6,16 @@ namespace r2d2::gas_detection {
 
     /**
      * Class mq_sensors_gas_curve_c provides the ability to create gas_curves
-     * for the mq_sensor. Each gas has its own logarithmic curve. The first 2
-     * values are points on the curve, the 3rd value is the slope increment.
+     * for the mq_sensor.
      */
     class mq_sensors_gas_curve_c {
     private:
         gas_type gas_id;
+
+        /** Each gas has its own logarithmic curve.
+         * The first 2 values are the starting point on the curve,
+         * the 3rd value is the slope increment.
+         **/
         std::array<float, 3> gas_curve = {};
 
     public:
@@ -24,7 +28,15 @@ namespace r2d2::gas_detection {
 
         /**
          * This constructor sets the gas curve values according to the gas_id.
-         * 0 is LPG, 1 is co, and 2 is smoke.
+         * 0 is LPG, 1 is co, and 2 is smoke 3 is alcohol.
+         *
+         * These mesures are done as following: For example LPG
+         * two points from LPG curve are taken point1:(200,1.6)
+         * point2(10000,0.26) take log of each point (lg200,
+         * lg 1.6)=(2.3,0.20)  (lg10000,lg0.26)=(4,-0.58)
+         * find the slope using these points.
+         * take point1 as reference data format:{ x, y,
+         * slope};
          **/
         mq_sensors_gas_curve_c(const gas_type &gas_id);
 
