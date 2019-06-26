@@ -1,6 +1,6 @@
 #include <comm.hpp>
-#include <hwlib.hpp>
 #include <gas_sensors_c.hpp>
+#include <hwlib.hpp>
 
 template <typename T, std::size_t N>
 hwlib::ostream &operator<<(hwlib::ostream &out, const std::array<T, N> &rhs) {
@@ -25,19 +25,19 @@ int main(void) {
 
     // Creating objects that contain the gas curve used by mq sensors.
     r2d2::gas_detection::mq_sensors_gas_curve_c lpg(
-        static_cast<int>(r2d2::gas_detection::gas_type::LPG));
+        r2d2::gas_detection::gas_type::LPG);
     r2d2::gas_detection::mq_sensors_gas_curve_c co(
-        static_cast<int>(r2d2::gas_detection::gas_type::CO));
+        r2d2::gas_detection::gas_type::CO);
     r2d2::gas_detection::mq_sensors_gas_curve_c smoke(
-        static_cast<int>(r2d2::gas_detection::gas_type::SMOKE));
+        r2d2::gas_detection::gas_type::SMOKE);
 
     // Creating structs that store the ID and value.
     r2d2::gas_detection::gas_s gas_s_lpg = {
-        static_cast<int>(r2d2::gas_detection::gas_type::LPG), 0};
+		r2d2::gas_detection::gas_type::LPG, 0};
     r2d2::gas_detection::gas_s gas_s_co = {
-        static_cast<int>(r2d2::gas_detection::gas_type::CO), 0};
+		r2d2::gas_detection::gas_type::CO, 0};
     r2d2::gas_detection::gas_s gas_s_smoke = {
-        static_cast<int>(r2d2::gas_detection::gas_type::SMOKE), 0};
+        r2d2::gas_detection::gas_type::SMOKE, 0};
 
     // Create MQ-2 sensor object with corresponding gas curves.
     std::array<r2d2::gas_detection::mq_sensors_gas_curve_c, gasses_amount>
@@ -65,9 +65,9 @@ int main(void) {
     r2d2::gas_detection::module_c<sensors_amount, gasses_amount> gas_sensors(
         comm1, gas_sensors_ptrs, container_gasses);
 
-    hwlib::cout << "start heating" << '\n';
+    hwlib::cout << "Started heating..." << '\n';
     hwlib::wait_ms(20'000); // the module needs to heat up!
-    hwlib::cout << "done heating" << '\n';
+    hwlib::cout << "Done heating" << '\n';
 
     // Setting interval and sample time for calibration.
     mq_2.set_sample_interval_time(10, 500);
