@@ -15,7 +15,7 @@ namespace r2d2::gas_detection {
         /** Each gas has its own logarithmic curve.
          * Meaning a value of 100 is represented as 2.
          * 
-         * The first 2 values are the logarithmic x and y starting points off the curve,
+         * The first 2 values are the logarithmic x and y starting points of the curve,
          * the 3rd value is the logarithmic slope increment.
          **/
         std::array<float, 3> gas_curve = {};
