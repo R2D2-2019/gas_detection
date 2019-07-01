@@ -27,7 +27,8 @@ namespace r2d2::gas_detection {
               container(container)
 
         {
-            comm.listen_for_frames({r2d2::frame_type::GAS});
+            comm.configure(r2d2::module::GAS_DETECTION,
+                           {r2d2::frame_type::GAS});
         }
 
         /**
